@@ -1,0 +1,45 @@
+version: '3,9'
+
+services:
+  keycloak:
+    image: jboss/keycloak
+    restart: unless-stopped
+    environment:
+      KEYCLOAK_USER: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASS}
+    ports:
+      - "8890:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - keycloak_data:/opt/jboss/keycloak/standalone/data
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    volumes:
+      - pgdata_keycloak:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - "5436:5432"
+
+
+volumes:
+  pgdata_keycloak:
+  keycloak_data:
+  
+networks:
+  keycloak_postgres_network:
+    driver: bridge
