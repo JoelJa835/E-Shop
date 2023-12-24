@@ -35,10 +35,31 @@ services:
     ports:
       - "5436:5432"
 
+  orders_db:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - orders_db_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+
+
+  products_db:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - products_db_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+
 
 volumes:
   pgdata_keycloak:
   keycloak_data:
+  products_db_data:
+  orders_db_data:
   
 networks:
   keycloak_postgres_network:
