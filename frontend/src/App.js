@@ -3,6 +3,10 @@ import './App.css';
 import { Login } from './Login';
 import { Register } from './Register';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { MyProducts } from './MyProducts'; 
+import { Products } from './Products'; 
+
 
 
 
@@ -10,7 +14,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 function App() {
+  //const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
   const [currentForm, setCurrentForm] = useState('login');
+  const [userRole, setUserRole] = useState(null); // Initialize as null or a default role
 
   const toggleForm = (formName) => {
     setCurrentForm(formName);
@@ -20,8 +26,7 @@ function App() {
     <div className="App">
     <Router>
       <Routes>
-        <Route path="/home" element={currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />} />
-        {/* <Route path="/login" element={<Login onFormSwitch={toggleForm} />} /> */}
+        <Route path="/home" element={currentForm === "login" ? <Login onFormSwitch={toggleForm} setUserRole={setUserRole} /> : <Register onFormSwitch={toggleForm} />} />
       </Routes>
     </Router>
   </div>

@@ -141,7 +141,7 @@ async function handleUserLogin(req, res) {
       res.status(200).json({
         userId: decodedToken.sub,
         email: decodedToken.email,
-        role: decodedToken.role,
+        role: decodedToken.realm_access.roles,
         access_token: access_token,
       });
     } else {

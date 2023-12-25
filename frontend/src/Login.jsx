@@ -1,10 +1,12 @@
 import { useState } from "react"
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
 
 
 export const Login = (props) => {
+    const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
     const[username, setUsername] = useState('')
     const[password, setPassword] = useState('')
 
@@ -23,14 +25,24 @@ export const Login = (props) => {
   
         if (response.status === 200) {
           // Successful login, handle the response data as needed
-          const { userId, email, role, access_token } = response.data;
+          const { userId, email, role , access_token } = response.data;
   
           // Store the user information in your state or Redux store
           // For example, you can dispatch an action if using Redux
           // dispatch(setUser({ userId, email, role, access_token }));
-  
-          // Redirect to a different page or perform any other actions
-          // ...
+          // Set the user's role in App.js state
+          //props.setUserRole(role[0]);
+          // Redirect based on the user's role
+          if (role[0] === 'seller') {
+            // Redirect to the seller's page (change the route as needed)
+            navigate('/myproducts');
+          } else if (role[0] === 'customer') {
+            // Redirect to the customer's page (change the route as needed)
+            navigate('/products');
+          } else {
+            // Handle unknown role or other cases
+            console.error('Unknown role:', role);
+          }
   
         } else {
           // Handle login failure

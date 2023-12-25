@@ -7,7 +7,7 @@ export const MyProducts = () => {
   return (
     <div className="my-products-list">
       <h1>My Products</h1>
-      <Menu />
+    
     </div>
   );
 };
