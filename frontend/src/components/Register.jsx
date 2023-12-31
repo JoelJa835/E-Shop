@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../Home.css';
 
 export const Register = (props) => {
   const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
@@ -23,14 +24,14 @@ export const Register = (props) => {
     try {
       // Send a POST request to your backend using axios
       const response = await axios.post('http://localhost:5000/register', userData);
+      console.log(response)
 
       // Check if the request was successful (status code 2xx)
-      if (response.ok) {
+      if (response.status >= 200 && response.status < 300) {
         // Registration successful
-        const responseData = await response.json();
+        const responseData = await response.data;
         console.log(responseData.message);
-        console.log('User registered successfully');
-        navigate('/login'); // Redirect to login page or handle as needed
+        navigate('/'); // Redirect to login page or handle as needed
       } else {
         // Registration failed
         const errorData = await response.json();

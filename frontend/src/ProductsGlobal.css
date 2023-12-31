@@ -1,0 +1,56 @@
+.hover-menu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 10%; /* Adjust the width here */
+    background-color: rgb(18, 9, 97); 
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+
+  .hover-menu.active {
+    opacity: 1;
+  }
+  
+  .hover-menu .user-details {
+    text-align: center;
+    color: rgb(255, 253, 253);
+  }
+  
+  .hover-menu .user-details h3 {
+    display: inline-block; /* Center the username text */
+    padding: 10px 20px; /* Add padding to the square */
+    border: 1px solid #ccc; /* Add a thin border */
+    border-radius: 20%; /* Round the corners of the square */
+  }
+  
+  .hover-menu .actions {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column; /* Change from row to column */
+    align-items: stretch;
+  }
+  
+  .hover-menu .actions a {
+    padding: 15px 20px;
+    border: 1px solid black;
+    margin-bottom: 10px; /* Add margin between links */
+    border-radius: 50px;
+    text-decoration: none; /* Remove the underline */
+    color: white;
+  }
+  
+  button.product-btn,
+  .hover-menu .actions button {
+    padding: 15px 20px;
+    border: 1px solid black;
+    margin-bottom: 10px; /* Add margin between buttons and links */
+    font-size: 16px;
+  }
+
+
+  

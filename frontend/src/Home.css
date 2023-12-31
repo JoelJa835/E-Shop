@@ -1,0 +1,40 @@
+/* Reusable styles for the login and register components */
+
+.auth-form-container, .login-form, .register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none solid #000;
+  border-radius: 10px;
+  
+}
+
+button {
+  border: none;
+  background-color: rgb(18, 9, 97);
+  padding: 20px;
+  border-radius: 50px;
+  color: rgb(255, 255, 255);
+}
+
+.link-btn {
+  background: none;
+  color: rgb(0, 0, 0);
+  text-decoration: underline;
+}
+
+select {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+}

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../Home.css';
 
 
 
@@ -25,20 +26,21 @@ export const Login = (props) => {
   
         if (response.status === 200) {
           // Successful login, handle the response data as needed
-          const { userId, email, role , access_token } = response.data;
-  
-          // Store the user information in your state or Redux store
-          // For example, you can dispatch an action if using Redux
-          // dispatch(setUser({ userId, email, role, access_token }));
-          // Set the user's role in App.js state
-          //props.setUserRole(role[0]);
+          const { role, access_token, refresh_token } = response.data;
+          console.log(refresh_token);
+          //localStorage.setItem('username', username);
+          localStorage.setItem('role', role);
+          
+          // Save the tokens to localStorage
+          //localStorage.setItem('refreshToken', refresh_token);
+          // localStorage.setItem('accessToken', access_token);
           // Redirect based on the user's role
-          if (role[0] === 'seller') {
+          if (role === 'seller') {
             // Redirect to the seller's page (change the route as needed)
-            navigate('/myproducts');
-          } else if (role[0] === 'customer') {
+            navigate('/myproducts', { state: { username, refresh_token } });
+          } else if (role === 'customer') {
             // Redirect to the customer's page (change the route as needed)
-            navigate('/products');
+            navigate('/products', { state: { username, refresh_token } });
           } else {
             // Handle unknown role or other cases
             console.error('Unknown role:', role);
