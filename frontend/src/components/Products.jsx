@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '../images/logo1.jpg';
 import axios from 'axios';
 import '../ProductsGlobal.css';
+import { CustomersMenu } from './CustomersMenu';
 
-const Products = () => {
+export const Products = () => {
   const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
   const location = useLocation();
   //const [Products, setProducts] = useState([]);
@@ -15,6 +16,8 @@ const Products = () => {
   const [refresh_token, setRefreshToken] = useState(location.state?.refresh_token || '');
 
   //const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  const storedUserRole = localStorage.getItem('role');
+  console.log(storedUserRole);
 
   const handleLogout = async (e) => {
     // Prevent default form submission
@@ -41,36 +44,13 @@ const Products = () => {
     console.error('Error during logout:', error);
     }
   };
-
-
   return (
-  <div className="my-products-list">
-  <div className="logo-container">
-    <img src={Logo} alt="Logo" />
-  </div>
-  {/* Menu Container */}
-  <div className="menu-container">
-    {/* Hover Menu */}
-    <div className="hover-menu">
-      <div className="user-details">
-        <h3>{loggedInUser}</h3>
+    <div className="my-products-list">
+      <div className="logo-container">
+        <img src={Logo} alt="Logo" />
       </div>
-      <div className="actions">
-        <a href="/" className="product-link" >
-          Products
-        </a>
-        <a href="/" className="product-link" >
-          Orders
-        </a>
-        <a href="/" className="product-link" >
-          Cart
-        </a>
-        <button className="product-btn" onClick={handleLogout}>Logout</button>
-      </div>
+      <CustomersMenu loggedInUser={loggedInUser} handleLogout={handleLogout} />
+      {/* Other content specific to Products.js */}
     </div>
-  </div>
-</div>
-
   );
 };
-export default Products;

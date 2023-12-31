@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '../images/logo1.jpg';
 import axios from 'axios';
 import '../ProductsGlobal.css';
+import { SellersMenu } from './SellersMenu';
 
 export const MyProducts = () => {
   const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
@@ -50,27 +51,8 @@ export const MyProducts = () => {
   <div className="logo-container">
     <img src={Logo} alt="Logo" />
   </div>
-  {/* Menu Container */}
-  <div className="menu-container">
-    {/* Hover Menu */}
-    <div className="hover-menu">
-      <div className="user-details">
-        <h3>{loggedInUser}</h3>
-      </div>
-      <div className="actions">
-        <a href="#" className="product-link" >
-          Add Product
-        </a>
-        <a href="#" className="product-link" >
-          Update Product
-        </a>
-        <a href="#" className="product-link" >
-          Delete Product
-        </a>
-        <button className="product-btn" onClick={handleLogout}>Logout</button>
-      </div>
-    </div>
-  </div>
+  <SellersMenu loggedInUser={loggedInUser} handleLogout={handleLogout} />
+      {/* Other content specific to Products.js */}
 </div>
 
   );
