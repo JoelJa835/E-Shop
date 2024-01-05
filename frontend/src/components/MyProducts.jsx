@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Logo from '../images/logo1.jpg';
-import axios from 'axios';
+import { handleLogout } from '../Utils';
 import '../ProductsGlobal.css';
-import { SellersMenu } from './SellersMenu';
 
 export const MyProducts = () => {
   const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
@@ -18,41 +18,35 @@ export const MyProducts = () => {
   //const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
  
 
-  const handleLogout = async (e) => {
-    // Prevent default form submission
-    e.preventDefault();
-    // Prepare data for login request
-    const logoutData = {
-        refresh_token: refresh_token,
-    };
-
-    try {
-    // Make a POST request to the /login endpoint on your backend
-    const response = await axios.post('http://localhost:5000/logout', logoutData);
-    console.log(response.status);
-
-    if (response.status >= 200 && response.status < 300) {
-      navigate('/');
-
-    } else {
-      // Handle login failure
-      console.error('Logout failed:', response.data);
-    }
-    } catch (error) {
-    // Handle network error or other issues
-    console.error('Error during logout:', error);
-    }
+  const handleLogoutClick = () => {
+    handleLogout(refresh_token, navigate);
   };
-
-  
 
   return (
   <div className="my-products-list">
-  <div className="logo-container">
-    <img src={Logo} alt="Logo" />
-  </div>
-  <SellersMenu loggedInUser={loggedInUser} handleLogout={handleLogout} />
-      {/* Other content specific to Products.js */}
+    <div className="logo-container">
+      <img src={Logo} alt="Logo" />
+    </div>
+      <div className="menu-container">
+          <div className="hover-menu">
+            <div className="user-details">
+            </div>
+              <div className="actions">
+                <Link to="/myproducts/addproduct" className="product-link">
+                  Add Product
+                </Link>
+                <Link to="/myproducts/updateproduct" className="product-link">
+                  Update Product
+                </Link>
+                <Link to="/myproducts/delproduct" className="product-link">
+                   Delete Product
+                </Link>
+              </div>
+              <button className="product-btn" onClick={handleLogoutClick}>
+                Logout
+              </button>
+          </div>
+      </div>
 </div>
 
   );

@@ -18,7 +18,7 @@ const corsOptions = {
 // Enable CORS for specific routes
 app.use('/register', cors(corsOptions)); // Apply CORS for the /register route
 app.use('/login', cors(corsOptions));    // Apply CORS for the /login route
-app.use('/logout', cors(corsOptions))
+app.use('/logout', cors(corsOptions));
 // Registration endpoint
 app.post('/register', handleUserRegistration);
 
@@ -144,7 +144,6 @@ async function handleUserLogin(req, res) {
       const isSeller = roles.includes("seller");
       const isCustomer = roles.includes("customer");
 
-      // Send the appropriate role back to the client
       if (isSeller) {
         res.status(200).json({
           role: "seller",

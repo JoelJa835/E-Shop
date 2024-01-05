@@ -27,9 +27,6 @@ export const Login = (props) => {
         if (response.status === 200) {
           // Successful login, handle the response data as needed
           const { role, access_token, refresh_token } = response.data;
-          //localStorage.setItem('username', username);
-          localStorage.setItem('role', role);
-          
           // Save the tokens to localStorage
           //localStorage.setItem('refreshToken', refresh_token);
           // localStorage.setItem('accessToken', access_token);

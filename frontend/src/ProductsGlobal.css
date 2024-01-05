@@ -10,8 +10,13 @@
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     transition: opacity 0.3s ease-in-out;
   }
-  
 
+  .logo-container {
+    position: absolute;
+    top: 10px; /* Adjust the top position */
+    left: 10px; /* Adjust the left position */
+  }
+  
   .hover-menu.active {
     opacity: 1;
   }
