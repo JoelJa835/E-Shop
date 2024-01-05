@@ -1,20 +1,22 @@
 // AddProduct.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import Logo from '../images/logo1.jpg';
-import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { handleLogout } from '../Utils';
+import { useAuth } from '../hooks/useAuth';
 import '../ProductsGlobal.css';
 
 export const AddProduct = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [refresh_token, setRefreshToken] = useState(location.state?.refresh_token || '');
+  const username = localStorage.getItem('userName');
+  const refresh_token = localStorage.getItem('refreshToken');
 
   const handleLogoutClick = () => {
     handleLogout(refresh_token, navigate);
   };
+
+  useAuth(['seller']);
 
   return (
     <div>
@@ -27,6 +29,7 @@ export const AddProduct = () => {
           <div className="menu-container">
               <div className="hover-menu">
                 <div className="user-details">
+                  <h3>{username}</h3>
                 </div>
                   <div className="actions">
                     <Link to="/myproducts/addproduct" className="product-link">

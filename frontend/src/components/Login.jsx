@@ -26,17 +26,19 @@ export const Login = (props) => {
   
         if (response.status === 200) {
           // Successful login, handle the response data as needed
-          const { role, access_token, refresh_token } = response.data;
+          const { username, role, access_token, refresh_token } = response.data;
           // Save the tokens to localStorage
-          //localStorage.setItem('refreshToken', refresh_token);
-          // localStorage.setItem('accessToken', access_token);
+          localStorage.setItem('userName', username);
+          localStorage.setItem('role', role);
+          localStorage.setItem('refreshToken', refresh_token);
+          localStorage.setItem('accessToken', access_token);
           // Redirect based on the user's role
           if (role === 'seller') {
             // Redirect to the seller's page (change the route as needed)
-            navigate('/myproducts', { state: { username, refresh_token } });
+            navigate('/myproducts');
           } else if (role === 'customer') {
             // Redirect to the customer's page (change the route as needed)
-            navigate('/products', { state: { username, refresh_token } });
+            navigate('/products');
           } else {
             // Handle unknown role or other cases
             console.error('Unknown role:', role);

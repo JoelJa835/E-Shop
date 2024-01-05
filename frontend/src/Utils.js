@@ -9,6 +9,8 @@ export const handleLogout = async (refreshToken, navigate) => {
     const response = await axios.post('http://localhost:5000/logout', logoutData);
 
     if (response.status >= 200 && response.status < 300) {
+      // Clear all items in localStorage
+      localStorage.clear();
       navigate('/');
     } else {
       console.error('Logout failed:', response.data);

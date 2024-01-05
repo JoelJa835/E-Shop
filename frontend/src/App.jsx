@@ -13,11 +13,6 @@ import { UpdateProduct }from './components/UpdateProduct';
 import { DeleteProduct }from './components/DeleteProduct'; 
 
 
-
-
-
-
-
 function App() {
   //const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
   const [currentForm, setCurrentForm] = useState('login');

@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Logo from '../images/logo1.jpg';
 import { handleLogout } from '../Utils';
+import { useAuth } from '../hooks/useAuth';
 import '../ProductsGlobal.css';
 
 export const MyProducts = () => {
   const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
-  const location = useLocation();
-  //const [myProducts, setMyProducts] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState(
-    location.state?.username || ''
-  );
-
-  const [refresh_token, setRefreshToken] = useState(location.state?.refresh_token || '');
-  //const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  
+  const username = localStorage.getItem('userName');
+  const refresh_token = localStorage.getItem('refreshToken');
  
 
   const handleLogoutClick = () => {
     handleLogout(refresh_token, navigate);
   };
+
+  useAuth(['seller']);
 
   return (
   <div className="my-products-list">
@@ -30,6 +27,7 @@ export const MyProducts = () => {
       <div className="menu-container">
           <div className="hover-menu">
             <div className="user-details">
+            <h3>{username}</h3>
             </div>
               <div className="actions">
                 <Link to="/myproducts/addproduct" className="product-link">

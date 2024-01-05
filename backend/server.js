@@ -139,6 +139,8 @@ async function handleUserLogin(req, res) {
       // Decode the access token to get user information
       const decodedToken = await decodeJwt(access_token);
       const roles = decodedToken.realm_access.roles;
+      const username = decodedToken.preferred_username;
+    
 
       // Identify the specific role that indicates whether the user is a seller or a customer
       const isSeller = roles.includes("seller");
@@ -146,12 +148,14 @@ async function handleUserLogin(req, res) {
 
       if (isSeller) {
         res.status(200).json({
+          username: username,
           role: "seller",
           access_token: access_token,
           refresh_token: refresh_token,
         });
       } else if (isCustomer) {  
         res.status(200).json({
+          username: username,
           role: "customer",
           access_token: access_token,
           refresh_token: refresh_token,
