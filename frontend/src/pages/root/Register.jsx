@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../Home.css';
+import '../root/Home.css';
 
 export const Register = (props) => {
   const navigate = useNavigate(); // Use useNavigate hook to get the navigation function

@@ -1,9 +1,9 @@
-.hover-menu {
+/* .hover-menu {
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
-    width: 10%; /* Adjust the width here */
+    width: 10%; 
     background-color: rgb(18, 9, 97); 
     border-radius: 10px;
     padding: 20px;
@@ -13,8 +13,9 @@
 
   .logo-container {
     position: absolute;
-    top: 10px; /* Adjust the top position */
-    left: 10px; /* Adjust the left position */
+    top: 10px; 
+    left: 10px;
+    margin-right: 20px;
   }
   
   .hover-menu.active {
@@ -27,25 +28,25 @@
   }
   
   .hover-menu .user-details h3 {
-    display: inline-block; /* Center the username text */
-    padding: 10px 20px; /* Add padding to the square */
-    border: 1px solid #ccc; /* Add a thin border */
-    border-radius: 20%; /* Round the corners of the square */
+    display: inline-block;
+    padding: 10px 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 20%;
   }
   
   .hover-menu .actions {
     margin-top: 10px;
     display: flex;
-    flex-direction: column; /* Change from row to column */
+    flex-direction: column; 
     align-items: stretch;
   }
   
   .hover-menu .actions a {
     padding: 15px 20px;
     border: 1px solid black;
-    margin-bottom: 10px; /* Add margin between links */
+    margin-bottom: 10px; 
     border-radius: 50px;
-    text-decoration: none; /* Remove the underline */
+    text-decoration: none;
     color: white;
   }
   
@@ -53,9 +54,12 @@
   .hover-menu .actions button {
     padding: 15px 20px;
     border: 1px solid black;
-    margin-bottom: 10px; /* Add margin between buttons and links */
+    margin-bottom: 10px; 
     font-size: 16px;
   }
 
 
-  
+   */
+
+
+   

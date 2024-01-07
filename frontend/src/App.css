@@ -5,7 +5,9 @@
   align-items: center;
   justify-content: center;
   color: rgb(0, 0, 0);
-  /* Remove the background image and gradient */
+  width: 100%;
+  height: auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @media screen and (min-width: 600px) {
@@ -16,11 +18,6 @@
     margin: 0.5rem;
   }
 }
-
-
-
-
-
 
 
 
