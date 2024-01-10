@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { PRODUCTS } from "../products";
+import axios from "axios";
 
 export const ShopContext = createContext(null);
 
@@ -37,8 +38,24 @@ export const ShopContextProvider = (props) => {
     setCartItems((prev) => ({ ...prev, [itemId]: newAmount }));
   };
 
-  const checkout = () => {
-    setCartItems(getDefaultCart());
+  const checkout = async () => {
+    // Your checkout logic with Axios
+    console.log(cartItems);
+    try {
+      const response = await axios.post("/orders", {
+        products: cartItems,
+        totalAmount: getTotalCartAmount(),
+      });
+
+      if (response.status === 200) {
+        console.log("Order placed successfully!");
+        setCartItems(getDefaultCart()); // Reset the cart on successful checkout
+      } else {
+        console.error("Error placing order");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const contextValue = {

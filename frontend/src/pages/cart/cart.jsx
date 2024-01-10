@@ -3,6 +3,8 @@ import { ShopContext } from "../../context/shop-context";
 import { PRODUCTS } from "../../products";
 import { CartItem } from "./cart-items";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../hooks/useAuth';
+
 
 import "./cart.css";
 export const Cart = () => {
@@ -10,6 +12,7 @@ export const Cart = () => {
   const totalAmount = getTotalCartAmount();
 
   const navigate = useNavigate();
+  useAuth(['customer']);
 
   return (
     <div className="cart">
@@ -29,9 +32,15 @@ export const Cart = () => {
         <div className="checkout">
           <button onClick={() => navigate("/products/list")}> Continue Shopping </button>
           <button
-            onClick={() => {
-              checkout();
-              navigate("/checkout");
+            onClick={async () => {
+              try {
+                await checkout();
+                // If checkout is successful, navigate to the orders page
+                navigate("/orders");
+              } catch (error) {
+                // Handle the error, e.g., show an error message to the user
+                console.error("Checkout failed:", error);
+              }
             }}
           >
             Checkout
