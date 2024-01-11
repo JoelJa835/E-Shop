@@ -1,43 +1,51 @@
-// Orders.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import '../../ProductsGlobal.css';
+import axios from 'axios';
+//import '../../ProductsGlobal.css';
 
 
 export const Orders = () => {
-  // Sample orders data (you can replace this with your actual data)
-  const orders = [
-    {
-      orderId: 1,
-      product: "Product 1",
-      quantity: 2,
-      total: 21.98,
-    },
-    {
-      orderId: 2,
-      product: "Product 2",
-      quantity: 1,
-      total: 19.99,
-    },
-    // Add more orders as needed
-  ];
+  const [orders, setOrders] = useState([]);
+  const username = localStorage.getItem('userName');
 
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5001/orders/username/${username}`);
+        setOrders(response.data);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+
+    fetchOrders();
+  }, [username]);
   useAuth(['customer']);
 
   return (
     <div>
       <h1>Orders</h1>
-      {/* Orders Rendering */}
-      <div className="orders-list">
-        {orders.map((order) => (
-          <div key={order.orderId} className="order-item">
-            <h3>Order ID: {order.orderId}</h3>
-            <p>Product: {order.product}</p>
-            <p>Quantity: {order.quantity}</p>
-            <p>Total: {order.total} €</p>
-          </div>
-        ))}
-      </div>
+      {orders.length === 0 ? (
+        <p>No orders found for {username}.</p>
+      ) : (
+        <div className="orders-list">
+          {orders.map((order) => (
+            <div key={order._id} className="order-item">
+              <h3>Order ID: {order._id}</h3>
+              {order.Products.map((product, index) => (
+                <div key={index} className="product-item">
+                  <img src={product.productImage} alt={`Product: ${product.productName}`} />
+                  <p>Product: {product.productName}</p>
+                  <p>Quantity: {product.amount}</p>
+                  <p>Price: {product.price} €</p>
+                  <p>Total: {product.amount * product.price} €</p>
+                </div>
+              ))}
+              <p>Total Order Price: {order.Total_price} €</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

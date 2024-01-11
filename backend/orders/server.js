@@ -11,15 +11,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-// const corsOptions = {
-//   origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
+const corsOptions = {
+  origin: 'http://localhost:3000', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
-// // Enable CORS for specific routes
-// app.use('/orders', cors(corsOptions)); 
+app.use(cors(corsOptions));
 
 
 
@@ -55,8 +54,7 @@ const orderSchema = new mongoose.Schema({
         type:String,
         required: true
     },
-    },
-    { _id: false }
+    }
   ],
   Total_price: {
     type: Number,

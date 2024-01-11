@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const mongoose = require('mongoose');
+const cors = require('cors');
 require('dotenv').config()
 
 const app = express();
@@ -8,6 +9,15 @@ const PORT = process.env.PORT || 5002;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 
 
@@ -95,7 +105,7 @@ app.get('/products', async (req, res) => {
     try {
       const productId = req.params.id;
       // Retrieve product with the specified id from the database
-      const product = await Product.findById(productId);
+      const product = await Product.find({ id: productId });
   
       if (product) {
         res.json({ product });

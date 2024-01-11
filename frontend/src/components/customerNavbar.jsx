@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
-import { handleLogout } from '../Utils';
+import { handleLogout } from '../Utils/Utils';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../images/logo1.jpg';
 import "./navbar.css";
