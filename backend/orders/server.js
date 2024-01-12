@@ -1,13 +1,12 @@
-import { sendOrders } from "./kafka.js";
+//import { sendOrders } from "./kafka.js";
 
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors'); 
 const mongoose = require('mongoose');
-require('dotenv').config()
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = 5001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
