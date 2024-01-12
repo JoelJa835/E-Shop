@@ -1,56 +1,53 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useProductFetcher } from "../Utils/ProductFetcher"
 import axios from "axios";
 
-import { PRODUCTS } from "../products";
 
 export const ShopContext = createContext(null);
 
-// const getDefaultCart = (products) => {
-//   let cart = {};
-//   for (let i = 1; i < products.length + 1; i++) {
-//     cart[i] = 0;
-//   }
-//   return cart;
-// };
-
-const getDefaultCart = () => {
+const getDefaultCart = (products) => {
   let cart = {};
-  for (let i = 1; i < PRODUCTS.length + 1; i++) {
+  for (let i = 1; i < products.length + 1; i++) {
     cart[i] = 0;
   }
+  console.log(products);
   return cart;
+};
+
+
+const getTotalCartAmount = (cartItems, products) => {
+  let totalAmount = 0;
+  for (const item in cartItems) {
+    if (cartItems[item] > 0) {
+      let itemInfo = products.find((product) => product.id === Number(item));
+      if (itemInfo) {
+        totalAmount += cartItems[item] * itemInfo.price;
+      }
+    }
+  }
+  return totalAmount;
 };
 
 
 export const ShopContextProvider = (props) => {
   const products = useProductFetcher();
-  //console.log(products);
-  // const [cartItems, setCartItems] = useState(getDefaultCart(products));
-  const [cartItems, setCartItems] = useState(getDefaultCart());
+  //const [cartItems, setCartItems] = useState(getDefaultCart());
+  const [cartItems, setCartItems] = useState(getDefaultCart(products));
 
-  console.log(cartItems);
-
-  // const getTotalCartAmount = () => {
-  //   let totalAmount = 0;
-  //   for (const item in cartItems) {
-  //     if (cartItems[item] > 0) {
-  //       let itemInfo = products.find((product) => product.id === Number(item));
-  //       totalAmount += cartItems[item] * itemInfo.price;
-  //     }
-  //   }
-  //   return totalAmount;
-  // };
-  const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        let itemInfo = PRODUCTS.find((product) => product.id === Number(item));
-        totalAmount += cartItems[item] * itemInfo.price;
-      }
+  useEffect(() => {
+    console.log("Products:", products);
+    setCartItems((prevCartItems) => getDefaultCart(products || prevCartItems));
+  }, [products]);
+  
+  useEffect(() => {
+    console.log("Cart Items:", cartItems);
+    // Ensure products are available before calculating the total cart amount
+    if (products) {
+      const totalAmount = getTotalCartAmount(cartItems,products);
+      console.log("Total Amount:", totalAmount);
     }
-    return totalAmount;
-  };
+  }, [products, cartItems]);
+  
 
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
@@ -69,38 +66,22 @@ export const ShopContextProvider = (props) => {
     console.log(username);
 
     try {
-      // const formattedProducts = Object.keys(cartItems).map((productId) => {
-      //   const productInfo = PRODUCTS.find((product) => product.id === Number(productId));
+        const formattedProducts = Object.keys(cartItems).map((productId) => {
+        const productInfo = products.find((product) => product.id === Number(productId));
   
-      //   return {
-      //     id: productInfo.id,
-      //     productName: productInfo.name,
-      //     amount: cartItems[productId],
-      //     price: productInfo.price,
-      //     productImage: productInfo.image,
-      //   };
-      // });
-
-      const customProducts = [
-        {
-          id: 1,
-          productName: "Test Product 5",
-          amount: 2,
-          price: 15.99,
-          productImage: "phone1.jpeg",
-        },
-        {
-          id: 2,
-          productName: "Test Product 6",
-          amount: 1,
-          price: 24.99,
-          productImage: "phone2.jpeg",
-        },
-      ];
+        return {
+          id: productInfo.id,
+          productName: productInfo.productName,
+          amount: cartItems[productId],
+          price: productInfo.price,
+          productImage: productInfo.productImage,
+        };
+      });
+      console.log(formattedProducts);
   
       const response = await axios.post("http://localhost:5001/orders", {
-        Products: customProducts,
-        Total_price: getTotalCartAmount,
+        Products: formattedProducts,
+        Total_price: getTotalCartAmount(cartItems, products),
         Status: "Pending",
         customer_username: username, 
       }, {
@@ -112,7 +93,7 @@ export const ShopContextProvider = (props) => {
   
       if (response.status === 200) {
         console.log("Order placed successfully!");
-        setCartItems(getDefaultCart()); // Reset the cart on successful checkout
+        setCartItems(getDefaultCart([])); 
       } else {
         console.error("Error placing order");
       }

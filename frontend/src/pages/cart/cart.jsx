@@ -9,7 +9,6 @@ import "./cart.css";
 
 export const Cart = () => {
   const { cartItems, getTotalCartAmount, checkout } = useContext(ShopContext);
-  const totalAmount = getTotalCartAmount();
 
   const navigate = useNavigate();
   useAuth(['customer']);
@@ -28,6 +27,8 @@ export const Cart = () => {
 
     fetchProducts();
   }, []);
+
+  const totalAmount = getTotalCartAmount(cartItems,products);
 
   return (
     <div className="cart">

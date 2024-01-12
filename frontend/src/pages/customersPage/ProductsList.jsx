@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { Product } from "./product";
 import { useProductFetcher } from '../../Utils/ProductFetcher';
-import '../../ProductList.css';
+import './ProductList.css';
 
 export const ProductsList = () => {
   useAuth(['customer']);

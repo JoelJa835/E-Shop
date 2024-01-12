@@ -1,3 +1,5 @@
+import { sendOrders } from "./kafka.js";
+
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors'); 
@@ -91,6 +93,15 @@ app.post('/orders', async (req, res) => {
 
     // Save the order to the database
     await newOrder.save();
+
+    // const orderMessage = {
+    //   id: result.rows[0].id,
+    //   products: products,
+    // };
+
+    // console.log(orderMessage);
+
+    // await sendOrders(orderMessage);
 
     res.json({ message: 'Order created successfully', order: newOrder });
   }

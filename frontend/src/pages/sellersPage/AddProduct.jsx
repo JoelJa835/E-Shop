@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import axios from 'axios';
-import '../../ProductsGlobal.css';
 
 export const AddProduct = () => {
 
@@ -14,8 +13,8 @@ export const AddProduct = () => {
     productName: '',
     productImage: '',
     price: 0,
-    quantity: 0,
-    customerName: '',
+    Quantity: 0,
+    seller_username: '',
   });
 
   const handleInputChange = (e) => {
@@ -25,7 +24,12 @@ export const AddProduct = () => {
 
   const handleAddProduct = async () => {
     try {
-      await axios.post('http://localhost:5002/products', product);
+      await axios.post('http://localhost:5002/products', product, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true, // Set this to true for cross-origin requests with credentials
+      });
 
       console.log('Product added successfully');
     } catch (error) {
@@ -50,10 +54,10 @@ export const AddProduct = () => {
         <input type="number" name="price" value={product.price} onChange={handleInputChange} />
 
         <label>Quantity:</label>
-        <input type="number" name="quantity" value={product.quantity} onChange={handleInputChange} />
+        <input type="number" name="Quantity" value={product.Quantity} onChange={handleInputChange} />
 
-        <label>Customer Name:</label>
-        <input type="text" name="customerName" value={product.customerName} onChange={handleInputChange} />
+        <label>seller_username:</label>
+        <input type="text" name="seller_username" value={product.seller_username} onChange={handleInputChange} />
 
         <button type="button" onClick={handleAddProduct}>
           Add Product

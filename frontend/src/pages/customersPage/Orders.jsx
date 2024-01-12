@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import axios from 'axios';
-//import '../../ProductsGlobal.css';
-
 
 export const Orders = () => {
   const [orders, setOrders] = useState([]);
